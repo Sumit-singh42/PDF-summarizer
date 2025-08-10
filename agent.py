@@ -1,9 +1,9 @@
 import fitz  
 import google.generativeai as genai
 import gradio as gr
-GEMINI_API_KEY = "AIzaSyCWfIosHYmPC_j28VQWiqu6fiCxRQQXfLA" 
+GEMINI_API_KEY = "" 
 if not GEMINI_API_KEY:
-    raise ValueError("Missing Gemini API key")
+    raise ValueError("Missing API key")
 
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash")
@@ -30,7 +30,7 @@ def summarize_pdf(pdf_file):
 
     for idx, chunk in enumerate(chunks, start=1):
         prompt = f"""
-        Summarize the following text clearly and concisely.
+        Summarise the following text clearly and concisely.
         Use bullet points and highlight key facts.
 
         Text:
@@ -45,7 +45,7 @@ def summarize_pdf(pdf_file):
 
 def answer_question(question):
     if not pdf_text_global:
-        return "Please upload and summarize a PDF first."
+        return "Please upload and summarise a PDF first."
     
     prompt = f"""
     You are an AI assistant. Use ONLY the following PDF content to answer the question accurately.
@@ -77,3 +77,4 @@ with gr.Blocks() as demo:
     ask_btn.click(answer_question, inputs=[question_input], outputs=[answer_output])
 
 demo.launch()
+
